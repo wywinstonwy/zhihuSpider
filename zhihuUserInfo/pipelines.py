@@ -29,10 +29,10 @@ class ZhihuuserinfoPipeline(object):
         self.table_name = dt.strftime('%Y_%m_%d')
         self.conn1.query('drop table if exists ' + self.table_name)
         self.conn1.commit()
-        sql_create_table = 'create table ' + self.table_name + '(name char(20),sex char(4),url_token char(20),locations char(8),description char(25),headline char(25),school char(8),major char(8),business char(8),user_type char(8),answer int(16),articles int(16),follower int(16),following int(16),voteup int(16),thanked int(16),favorited int(16))'
+        sql_create_table = 'create table ' + self.table_name + '(name char(20),sex char(4),url_token char(40),locations char(30),headline char(40),school char(45),major char(30),business char(30),user_type char(20),answer int(16),articles int(16),follower int(16),following int(16),voteup int(16),thanked int(16),favorited int(16))'
         self.conn1.query(sql_create_table)
         self.conn1.commit()
-        self.sql = 'insert into ' + self.table_name + '(name,sex,url_token,locations,description,headline,school,major,business,user_type,answer,articles,follower,following,voteup,thanked,favorited) values("{name}","{sex}","{url_token}","{locations}","{description}","{headline}","{school}","{major}","{business}","{user_type}","{answer_count}","{articles_count}","{follower_count}","{following_count}","{voteup_count}","{thanked_count}","{favorited_count}")'
+        self.sql = 'insert into ' + self.table_name + '(name,sex,url_token,locations,headline,school,major,business,user_type,answer,articles,follower,following,voteup,thanked,favorited) values("{name}","{sex}","{url_token}","{locations}","{headline}","{school}","{major}","{business}","{user_type}","{answer_count}","{articles_count}","{follower_count}","{following_count}","{voteup_count}","{thanked_count}","{favorited_count}")'
 
     def process_item(self, item, spider):
 
@@ -42,7 +42,6 @@ class ZhihuuserinfoPipeline(object):
                 sex=item['sex'],
                 url_token=item['url_token'],
                 locations=item['locations'],
-                description=item['description'],
                 headline=item['headline'],
                 school=item['school'],
                 major=item['major'],

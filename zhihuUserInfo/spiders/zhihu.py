@@ -3,6 +3,7 @@ import scrapy
 from scrapy import Request
 import json
 from zhihuUserInfo.items import ZhihuuserinfoItem
+import re
 
 
 class ZhihuSpider(scrapy.Spider):
@@ -55,11 +56,13 @@ class ZhihuSpider(scrapy.Spider):
         item['following_count'] = data['following_count']
         item['thanked_count'] = data['thanked_count']
         item['answer_count'] = data['answer_count']
-        item['headline'] = data['headline']
         item['user_type'] = data['user_type']
         item['voteup_count'] = data['voteup_count']
         item['url_token'] = data['url_token']
-        item['description'] = data['description']
+        if len(data['headline']) > 40:
+            item['headline'] = re.compile('(.+?)<a').findall(data['headline'])[0]
+        else:
+            item['headline'] = data['headline']
         sex = ['未知', '女', '男']
         item['sex'] = sex[data['gender'] + 1]
         try:
@@ -69,17 +72,16 @@ class ZhihuSpider(scrapy.Spider):
                 item['business'] = ''
         except:
             item['business'] = ''
+        item['school'] = ''
+        item['major'] = ''
         if data['educations']:
             for i in data['educations']:
                 for key, value in i.items():
                     if key == 'major':
                         item['major'] = value['name']
-
-                    if key == 'school':
+                    elif key == 'school':
                         item['school'] = value['name']
-        else:
-            item['major'] = ''
-            item['school'] = ''
+    
         if data['locations']:
             item['locations'] = data['locations'][0]['name']
         else:

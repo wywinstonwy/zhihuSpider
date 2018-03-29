@@ -16,11 +16,9 @@ class ZhihuuserinfoItem(scrapy.Item):
     follower_count = scrapy.Field()#粉丝数量
     following_count = scrapy.Field()#关注了多少人
     educations = scrapy.Field()#教育背景
-    description = scrapy.Field()#个人描述
     locations = scrapy.Field()#所在地
     url_token = scrapy.Field()#知乎给予的每个人用户主页唯一的ID
     name = scrapy.Field()#用户昵称
-    # employments = scrapy.Field()#工作信息
     business = scrapy.Field()#一些工作或者商业信息的合集
     user_type = scrapy.Field()#用户类型，可以是个人，也可以是团体等等
     headline = scrapy.Field()#个人主页的标签
