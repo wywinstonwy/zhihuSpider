@@ -35,7 +35,6 @@ class ZhihuuserinfoPipeline(object):
         self.sql = 'insert into ' + self.table_name + '(name,sex,url_token,locations,headline,school,major,business,user_type,answer,articles,follower,following,voteup,thanked,favorited) values("{name}","{sex}","{url_token}","{locations}","{headline}","{school}","{major}","{business}","{user_type}","{answer_count}","{articles_count}","{follower_count}","{following_count}","{voteup_count}","{thanked_count}","{favorited_count}")'
 
     def process_item(self, item, spider):
-
         self.conn1.query(
             self.sql.format(
                 name=item['name'],

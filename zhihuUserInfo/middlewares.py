@@ -6,6 +6,9 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+import random
+from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
+from zhihuUserInfo.settings import USER_AGENTS
 
 
 class ZhihuuserinfoSpiderMiddleware(object):
@@ -101,3 +104,8 @@ class ZhihuuserinfoDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class UserAgentmiddleware(object):
+    def process_request(self, request, spider):
+        request.headers['User-Agent'] = random.choice(USER_AGENTS)
